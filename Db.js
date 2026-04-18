@@ -20,7 +20,7 @@ connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`, (err) =
   else console.log(`Database '${process.env.DB_NAME}' ready`);
 });
 
-// connection.end();
+connection.end();
 
 // create the pool with the database selected
 const db = mysql.createPool({
@@ -28,8 +28,15 @@ const db = mysql.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 3306,
+  ssl: {
+    rejectUnauthorized: false
+  },
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
-
+  
 // Create the schools table if it doesn't exist
 db.query(`
   CREATE TABLE IF NOT EXISTS schools (
