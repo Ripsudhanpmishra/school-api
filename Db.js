@@ -20,7 +20,7 @@ connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`, (err) =
   else console.log(`Database '${process.env.DB_NAME}' ready`);
 });
 
-connection.end();
+// connection.end();
 
 // create the pool with the database selected
 const db = mysql.createPool({
